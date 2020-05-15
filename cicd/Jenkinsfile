@@ -17,7 +17,7 @@ spec:
   serviceAccount: jenkins
   containers:
   - name: 'jnlp'
-    image: "$env.JENKINS_WORKER_IMAGE_MAVEN}"
+    image: "${env.JENKINS_WORKER_IMAGE_MAVEN}"
     tty: true
 """
             }
