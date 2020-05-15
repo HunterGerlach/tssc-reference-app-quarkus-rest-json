@@ -1,7 +1,5 @@
 // Javascript Frontend Jenkinsfile
 pipeline {
-  environment {
-  }
 
   // TODO Update the agent as appropriate for the actual implementation
   agent {
