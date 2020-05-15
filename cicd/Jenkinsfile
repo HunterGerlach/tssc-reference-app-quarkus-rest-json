@@ -6,10 +6,10 @@ pipeline {
 
   stages {
 
-    stage('Clone') {
+    stage('Setup') {
       steps {
-        echo '${STAGE_NAME}'
-        // git url: "", branch: ""
+        python --version
+        pip --version
       } // steps
     } // stage
 
