@@ -1,0 +1,114 @@
+// Javascript Frontend Jenkinsfile
+pipeline {
+
+  // TODO Update the agent as appropriate for the actual implementation
+  agent { label 'master'}
+
+  stages {
+
+    stage('Clone') {
+      steps {
+        echo '${STAGE_NAME}'
+        // git url: "", branch: ""
+      } // steps
+    } // stage
+
+    stage('Generate Metadata') {
+      steps {
+        echo '${STAGE_NAME}'
+      } // steps
+    } // stage
+
+    stage('Tag Source Code with Metadata') {
+      steps {
+        echo '${STAGE_NAME}'
+      } // steps
+    } // stage
+
+    stage('Static Code Analysis') {
+
+      // If the same tool is being used for both (i.e. Sonarqube),
+      // then these parallel stages can be merged.
+      parallel {
+        stage('Security Static Code Analysis (SonarQube)') {
+          steps {
+            echo '${STAGE_NAME}'
+          } // steps
+        } // stage
+
+       stage('Linting Static Code Analysis (SonarQube)') {
+         steps {
+            echo '${STAGE_NAME}'
+           } // steps
+         } // stage
+       } // parallel
+    } // stage
+    
+    stage('Compile / Build / Package Application (Maven)') {
+      steps {
+        echo '${STAGE_NAME}'
+      } // steps
+    } // stage
+
+    stage('Run Unit Tests (Junit)') {
+      steps {
+        echo '${STAGE_NAME}'
+      } // steps
+    } // stage
+
+    stage('Push Artifacts to Repository with Metadata') {
+      steps {
+        echo '${STAGE_NAME}'
+      } // steps
+    } // stage
+
+    stage('Compose Container') {
+      steps {
+        echo '${STAGE_NAME}'
+        } // steps
+      } // stage
+
+    stage('Push New Container Image with Metadata') {
+      steps {
+        echo '${STAGE_NAME}'
+      } // steps
+    } // stage    
+
+    stage('Image Unit Testing (TBD)') {
+      steps {
+        echo '${STAGE_NAME}'
+      } // steps
+    } // stage   
+
+    stage('Static Image Scans') {
+
+      parallel {
+        stage('Static Compliance Image Scan (OpenSCAP)') {
+          steps {
+            echo '${STAGE_NAME}'
+          } // steps
+        } // stage
+
+       stage('Static Vulnerability Image Scan (OpenSCAP)') {
+         steps {
+           echo '${STAGE_NAME}'
+         } // steps
+       } // stage
+      } // parallel
+    } // stage
+
+    stage('Push Trusted Container Image with Metadata') {
+      steps {
+        echo '${STAGE_NAME}'
+      } // steps
+    } // stage
+
+    stage('Trigger Deployment') {
+      steps {
+        echo '${STAGE_NAME} - if master branch trigger prod deployment else trigger non-prod deployment'
+      } // steps
+    } // stage
+
+  } //stages
+
+} // pipeline
