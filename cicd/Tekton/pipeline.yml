@@ -1,0 +1,149 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: java-backend
+spec:
+  resources:
+    - name: git-workspace
+      type: git
+  tasks:
+    - name: generate-metadata
+      resources:
+        inputs:
+          - name: git-workspace
+            resource: git-workspace
+      taskRef:
+        kind: Task
+        name: no-op
+    - name: tag-source-code-with-metadata
+      resources:
+        inputs:
+          - name: git-workspace
+            resource: git-workspace
+      runAfter:
+        - generate-metadata
+      taskRef:
+        kind: Task
+        name: no-op
+    - name: linting-static-code-analysis
+      resources:
+        inputs:
+          - name: git-workspace
+            resource: git-workspace
+      runAfter:
+        - tag-source-code-with-metadata
+      taskRef:
+        kind: Task
+        name: no-op
+    - name: compile-build-package-application
+      resources:
+        inputs:
+          - name: git-workspace
+            resource: git-workspace
+      runAfter:
+        - linting-static-code-analysis
+        - security-static-code-analysis
+      taskRef:
+        kind: Task
+        name: no-op
+    - name: security-static-code-analysis
+      resources:
+        inputs:
+          - name: git-workspace
+            resource: git-workspace
+      runAfter:
+        - tag-source-code-with-metadata
+      taskRef:
+        kind: Task
+        name: no-op
+    - name: run-unit-tests-junit
+      resources:
+        inputs:
+          - name: git-workspace
+            resource: git-workspace
+      runAfter:
+        - compile-build-package-application
+      taskRef:
+        kind: Task
+        name: no-op
+    - name: push-artifacts-to-repository-with-metadata
+      resources:
+        inputs:
+          - name: git-workspace
+            resource: git-workspace
+      runAfter:
+        - run-unit-tests-junit
+      taskRef:
+        kind: Task
+        name: no-op
+    - name: compose-container
+      resources:
+        inputs:
+          - name: git-workspace
+            resource: git-workspace
+      runAfter:
+        - push-artifacts-to-repository-with-metadata
+      taskRef:
+        kind: Task
+        name: no-op
+    - name: push-new-container-image-with-metadata
+      resources:
+        inputs:
+          - name: git-workspace
+            resource: git-workspace
+      runAfter:
+        - compose-container
+      taskRef:
+        kind: Task
+        name: no-op
+    - name: image-unit-testing-tbd
+      resources:
+        inputs:
+          - name: git-workspace
+            resource: git-workspace
+      runAfter:
+        - push-new-container-image-with-metadata
+      taskRef:
+        kind: Task
+        name: no-op
+    - name: static-compliance-image-scan-openscap
+      resources:
+        inputs:
+          - name: git-workspace
+            resource: git-workspace
+      runAfter:
+        - image-unit-testing-tbd
+      taskRef:
+        kind: Task
+        name: no-op
+    - name: static-vulnerability-image-scan-openscap
+      resources:
+        inputs:
+          - name: git-workspace
+            resource: git-workspace
+      runAfter:
+        - image-unit-testing-tbd
+      taskRef:
+        kind: Task
+        name: no-op
+    - name: push-trusted-container-image-with-metadata
+      resources:
+        inputs:
+          - name: git-workspace
+            resource: git-workspace
+      runAfter:
+        - static-compliance-image-scan-openscap
+        - static-vulnerability-image-scan-openscap
+      taskRef:
+        kind: Task
+        name: no-op
+    - name: trigger-deployment
+      resources:
+        inputs:
+          - name: git-workspace
+            resource: git-workspace
+      runAfter:
+        - push-trusted-container-image-with-metadata
+      taskRef:
+        kind: Task
+        name: no-op

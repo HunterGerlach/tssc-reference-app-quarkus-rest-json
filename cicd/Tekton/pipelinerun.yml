@@ -1,0 +1,15 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineRun
+metadata:
+  labels:
+    tekton.dev/pipeline: java-backend
+  name: java-backend-run-1
+spec:
+  pipelineRef:
+    name: java-backend
+  resources:
+  - name: git-workspace
+    resourceRef:
+      name: git-backend-workspace
+  serviceAccountName: pipeline
+  timeout: 1h0m0s
