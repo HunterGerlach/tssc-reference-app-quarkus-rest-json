@@ -37,9 +37,10 @@ spec:
         sh '''
         	source tssc/bin/activate
         	python -m tssc -c cicd/tssc-config.yml -s generate-metadata
-        	ls -al tssc-results/
+        	
+        	echo "DEBUG - print results"
+        	cat tssc-results/generate-metadata.yml
         '''
-        
       } // steps
     } // stage
 
