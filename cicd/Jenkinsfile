@@ -1,14 +1,14 @@
 // Javascript Frontend Jenkinsfile
 pipeline {
   environment {
-    APP_NEM = "tssc-reference-app-quarkus-rest-json"
+    APP_NAME = "tssc-reference-app-quarkus-rest-json"
     JENKINS_WORKER_IMAGE_MAVEN = "quay.io/itewk/jenkins-worker-python"
   }
 
   // TODO Update the agent as appropriate for the actual implementation
   agent {
     kubernetes {
-      label "jenkins-$env.APP_NAME}-${env.BUILD_ID}"
+      label "jenkins-${env.APP_NAME}-${env.BUILD_ID}"
       cloud 'openshift'
       yaml """
 apiVersion: v1
