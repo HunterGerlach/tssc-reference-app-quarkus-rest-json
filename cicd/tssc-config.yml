@@ -1,0 +1,6 @@
+---
+tssc-config:
+  generate-metadata:
+  - implementer: Maven
+    config: {
+    }

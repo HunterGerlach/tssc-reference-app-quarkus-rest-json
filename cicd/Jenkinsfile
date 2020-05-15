@@ -36,7 +36,8 @@ spec:
         echo "${STAGE_NAME} - TODO"
         sh '''
         	source tssc/bin/activate
-        	python -m tssc -c ../test/sample-tssc-config2.yml -s generate-metadata
+        	python -m tssc -c cicd/tssc-config.yml -s generate-metadata
+        	ls -al tssc-results/
         '''
         
       } // steps
