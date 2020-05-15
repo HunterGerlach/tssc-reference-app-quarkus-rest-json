@@ -8,9 +8,11 @@ pipeline {
 
     stage('Setup') {
       steps {
-      	shell '''
+      	sh '''
+      		echo "---"
             python --version
             pip --version
+            echo "---"
         '''
       } // steps
     } // stage
