@@ -10,7 +10,7 @@ pipeline {
     kubernetes {
       label "jenkins-$env.APP_NAME}-${env.BUILD_ID}"
       cloud 'openshift'
-      aml """
+      yaml """
 apiVersion: v1
 kind: Pod
 spec:
