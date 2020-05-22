@@ -3,15 +3,33 @@ kind: Pipeline
 metadata:
   name: java-backend
 spec:
+  workspaces:
+  - name: local-tssc-venv
   resources:
     - name: git-workspace
       type: git
   tasks:
+    - name: setup
+      resources:
+        inputs:
+          - name: git-workspace
+            resource: git-workspace
+      taskRef:
+        kind: ClusterTask
+        name: tssc-setup
+      workspaces:
+      - name: tssc-venv
+        workspace: local-tssc-venv
     - name: generate-metadata
       resources:
         inputs:
           - name: git-workspace
             resource: git-workspace
+      workspaces:
+      - name: tssc-venv
+        workspace: local-tssc-venv
+      runAfter:
+        - setup
       taskRef:
         kind: ClusterTask
         name: tssc-generate-metadata
