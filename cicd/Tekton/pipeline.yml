@@ -13,8 +13,8 @@ spec:
           - name: git-workspace
             resource: git-workspace
       taskRef:
-        kind: Task
-        name: no-op
+        kind: ClusterTask
+        name: tssc-generate-metadata
     - name: tag-source-code-with-metadata
       resources:
         inputs:
@@ -23,7 +23,7 @@ spec:
       runAfter:
         - generate-metadata
       taskRef:
-        kind: Task
+        kind: ClusterTask
         name: no-op
     - name: linting-static-code-analysis
       resources:
@@ -33,7 +33,7 @@ spec:
       runAfter:
         - tag-source-code-with-metadata
       taskRef:
-        kind: Task
+        kind: ClusterTask
         name: no-op
     - name: compile-build-package-application
       resources:
@@ -44,7 +44,7 @@ spec:
         - linting-static-code-analysis
         - security-static-code-analysis
       taskRef:
-        kind: Task
+        kind: ClusterTask
         name: no-op
     - name: security-static-code-analysis
       resources:
@@ -54,7 +54,7 @@ spec:
       runAfter:
         - tag-source-code-with-metadata
       taskRef:
-        kind: Task
+        kind: ClusterTask
         name: no-op
     - name: run-unit-tests-junit
       resources:
@@ -64,7 +64,7 @@ spec:
       runAfter:
         - compile-build-package-application
       taskRef:
-        kind: Task
+        kind: ClusterTask
         name: no-op
     - name: push-artifacts-to-repository-with-metadata
       resources:
@@ -74,7 +74,7 @@ spec:
       runAfter:
         - run-unit-tests-junit
       taskRef:
-        kind: Task
+        kind: ClusterTask
         name: no-op
     - name: compose-container
       resources:
@@ -84,7 +84,7 @@ spec:
       runAfter:
         - push-artifacts-to-repository-with-metadata
       taskRef:
-        kind: Task
+        kind: ClusterTask
         name: no-op
     - name: push-new-container-image-with-metadata
       resources:
@@ -94,7 +94,7 @@ spec:
       runAfter:
         - compose-container
       taskRef:
-        kind: Task
+        kind: ClusterTask
         name: no-op
     - name: image-unit-testing-tbd
       resources:
@@ -104,7 +104,7 @@ spec:
       runAfter:
         - push-new-container-image-with-metadata
       taskRef:
-        kind: Task
+        kind: ClusterTask
         name: no-op
     - name: static-compliance-image-scan-openscap
       resources:
@@ -114,7 +114,7 @@ spec:
       runAfter:
         - image-unit-testing-tbd
       taskRef:
-        kind: Task
+        kind: ClusterTask
         name: no-op
     - name: static-vulnerability-image-scan-openscap
       resources:
@@ -124,7 +124,7 @@ spec:
       runAfter:
         - image-unit-testing-tbd
       taskRef:
-        kind: Task
+        kind: ClusterTask
         name: no-op
     - name: push-trusted-container-image-with-metadata
       resources:
@@ -135,7 +135,7 @@ spec:
         - static-compliance-image-scan-openscap
         - static-vulnerability-image-scan-openscap
       taskRef:
-        kind: Task
+        kind: ClusterTask
         name: no-op
     - name: trigger-deployment
       resources:
@@ -145,5 +145,5 @@ spec:
       runAfter:
         - push-trusted-container-image-with-metadata
       taskRef:
-        kind: Task
+        kind: ClusterTask
         name: no-op

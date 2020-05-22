@@ -6,7 +6,7 @@ metadata:
 spec:
   params:
   - name: url
-    value: https://github.com/rhtconsulting/tssc-docs.git
+    value: http://gitea.apps.tssc.rht-set.com/tssc-references/tssc-reference-app-quarkus-rest-json.git
   - name: revision
     value: master
   type: git
