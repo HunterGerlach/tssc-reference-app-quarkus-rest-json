@@ -33,20 +33,19 @@ spec:
 
     stage('Generate Metadata') {
       steps {
-        echo "${STAGE_NAME} - TODO"
         sh '''
         	source tssc/bin/activate
         	python -m tssc -c cicd/tssc-config.yml -s generate-metadata
-        	
-        	echo "DEBUG - print results"
-        	cat tssc-results/generate-metadata.yml
         '''
       } // steps
     } // stage
 
     stage('Tag Source Code with Metadata') {
       steps {
-        echo '${STAGE_NAME}'
+        sh '''
+        	source tssc/bin/activate
+        	python -m tssc -c cicd/tssc-config.yml -s tag-source
+        '''
       } // steps
     } // stage
 
