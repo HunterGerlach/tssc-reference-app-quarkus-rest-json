@@ -13,7 +13,10 @@ spec:
   serviceAccount: jenkins
   containers:
   - name: 'jnlp'
-    image: 'quay.io/itewk/jenkins-worker-python:latest'
+    image: 'quay.io/redhat-cop/jenkins-agent-python:latest'
+    tty: true
+  - name: 'maven'
+    image: 'quay.io/redhat-cop/jenkins-slave-mvn:latest'
     tty: true
 """
             }
@@ -70,7 +73,11 @@ spec:
     
     stage('Compile / Build / Package Application (Maven)') {
       steps {
-        echo '${STAGE_NAME}'
+          container('maven') {
+            sh '''
+                which mvn
+            '''
+          }
       } // steps
     } // stage
 
