@@ -18,6 +18,7 @@ spec:
   - name: 'maven'
     image: 'quay.io/redhat-cop/jenkins-slave-mvn:latest'
     tty: true
+    command: ['sh', '-c', 'generate_container_user && cat']
 """
             }
         }
