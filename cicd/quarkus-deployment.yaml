@@ -14,7 +14,7 @@ spec:
         app: quarkus
     spec:
       containers:
-      - image: registry.access.redhat.com/ubi8/openjdk-11:latest~https://github.com/quarkusio/quarkus-quickstarts.git
+      - image: quay.io/quarkus/ubi-quarkus-native-image
         name: quarkus
         ports:
         - containerPort: 80
