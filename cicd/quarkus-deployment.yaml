@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quarkus
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: quarkus
+  template:
+    metadata:
+      labels:
+        app: quarkus
+    spec:
+      containers:
+      - image: registry.access.redhat.com/ubi8/openjdk-11:latest~https://github.com/quarkusio/quarkus-quickstarts.git
+        name: quarkus
+        ports:
+        - containerPort: 80
