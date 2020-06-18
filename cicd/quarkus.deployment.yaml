@@ -17,4 +17,4 @@ spec:
       - image: quay.io/hgerlach/quarkus-quickstart:v0.1
         name: quarkus-quickstart
         ports:
-        - containerPort: 8888
+        - containerPort: 8080
