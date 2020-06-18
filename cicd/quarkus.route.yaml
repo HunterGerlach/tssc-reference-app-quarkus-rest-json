@@ -1,0 +1,15 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: quarkus
+  namespace: default
+  labels:
+    app.kubernetes.io/instance: quarkus
+spec:
+  to:
+    kind: Service
+    name: quarkus-quickstart
+    weight: 100
+  port:
+    targetPort: 80
+  wildcardPolicy: None
