@@ -8,6 +8,10 @@ metadata:
 spec:
   to:
     kind: Service
-    name: quarkus-quickstart
-    weight: 100
+    name: quarkus-quickstart-blue
+    weight: 50
+  alternateBackends:
+  - kind: Service
+    name: quarkus-quickstart-green
+    weight: 50
   wildcardPolicy: None
