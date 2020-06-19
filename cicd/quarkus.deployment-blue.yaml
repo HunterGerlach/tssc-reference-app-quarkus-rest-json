@@ -14,7 +14,7 @@ spec:
         app: quarkus-quickstart-blue
     spec:
       containers:
-      - image: quay.io/hgerlach/quarkus-quickstart:v0.1
+      - image: quay.io/tssc/quarkus-quickstart:v0.1
         name: quarkus-quickstart-blue
         ports:
         - containerPort: 8080

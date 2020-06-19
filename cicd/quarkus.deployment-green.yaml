@@ -14,7 +14,7 @@ spec:
         app: quarkus-quickstart-green
     spec:
       containers:
-      - image: quay.io/hgerlach/quarkus-quickstart:v0.2
+      - image: quay.io/tssc/quarkus-quickstart:latest
         name: quarkus-quickstart-green
         ports:
         - containerPort: 8080
